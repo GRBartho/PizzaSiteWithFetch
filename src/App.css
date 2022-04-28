@@ -1,0 +1,192 @@
+body{
+  background-color: #D9B48F;
+}
+
+.All {
+  display: flex;
+  flex-direction: column;
+  flex:1;
+}
+
+.LoadingDiv {
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Loading {
+  color: #A6192E;
+  align-self: center;
+  min-width: 200px;
+  min-height: 200px;
+}
+
+.TopBar {
+  color: white;
+  background-color: #1c1c1c;
+  display: flex;
+  position: sticky;
+  top:0;
+  flex-basis: 100%;
+}
+
+.IndicadorCarrinho {
+  margin:20px;
+}
+
+.Refresh {
+  margin: 20px;
+}
+
+a {
+  color:white
+}
+
+.Header {
+  display: flex;
+  flex-direction: column;
+  flex:1;
+}
+
+.HBImage {
+  width: 100%;
+}
+
+.IMGBottom {
+  color: white;
+  background-color: #1c1c1c;
+  display: flex;
+}
+
+.IMGBottomText{
+  margin:20px;
+}
+
+.Product {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.butText {
+  margin: 3px;
+}
+
+.IndividualProducts {
+  display: flex;
+  flex-direction: column;
+  background-color: #A6192E;
+  color: white;
+  margin: 20px;
+  border-radius: 15px;
+  flex-basis: 90%;
+  align-items: center;
+  max-width: 50%;
+  overflow: hidden;
+}
+
+.ProductTitle {
+  margin:10px;
+  font-size: 20px;
+  font-size: 30px;
+}
+
+.ProdIMG {
+  flex:1;
+  margin:20px;
+  min-width: 150px;
+  min-height: 150px;
+  max-width: 150px;
+  max-height: 150px;
+}
+
+.OpenBtn {
+  display: flex;
+  flex-direction: row;
+  min-width: 100%;
+}
+
+.OpenList {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border:0px;
+  background-color: black;
+  color:WHITE;
+  font-weight: bolder;
+  font-size: 20px;
+  flex:1;
+  align-self: flex-end;
+}
+
+.OpenList:hover {
+  opacity: 0.7;
+}
+
+.ChildProducts {
+  background-color: #232323 ;
+  border-bottom-left-radius:15px;
+  border-bottom-right-radius:15px;
+  min-width: 100%;
+}
+
+.ChildName {
+  background-color: White;
+  color:black;
+  margin:15px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  flex:1;
+  align-items: center;
+}
+
+.ChildText {
+  font-size: 20px;
+  margin: 10px;
+}
+
+.Button {
+  margin:10px;
+  background-color: rgb(25,30,30);
+  border-radius: 5px;
+  color:white;
+  font-weight: bolder;
+}
+
+.Button:hover{
+  opacity:0.9;
+}
+
+.Button:disabled{
+  opacity:0.7
+}
+
+.ImagemFilho {
+  margin-left: 10px;
+  margin-bottom: 10px;
+  min-height: 60px;
+  min-width: 60px;
+}
+
+.FooterBar {
+  color: white;
+  background-color: #1c1c1c;
+  display: flex;
+  flex: 1;
+  position: sticky;
+  bottom: 0;
+  justify-content: center;
+}
+
+.FooterText {
+  margin:20px
+}
+
+.Cart {
+  margin:20px;
+}
