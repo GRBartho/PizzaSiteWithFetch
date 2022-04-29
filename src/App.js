@@ -5,6 +5,7 @@ import Cart from "./components/cart";
 import KeyboardReturnRoundedIcon from "@mui/icons-material/KeyboardReturnRounded";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
+import { Button } from "@mui/material";
 
 const App = () => {
   const url =
@@ -38,13 +39,14 @@ const App = () => {
       <div className="TopBar">
         {page === "home" && (
           <div className="AppHeader">
-            <RefreshRoundedIcon className="Refresh" onClick={() => refresh()} />
+            <Button style={{ color: "white" }} className="Refresh">
+              <RefreshRoundedIcon onClick={() => refresh()} />
+            </Button>
 
             <p className="IndicadorCarrinho">
-              <ShoppingCartIcon
-                className="CartIcon"
-                onClick={() => setPage("cart")}
-              />
+              <Button style={{ color: "white" }} className="CartIcon">
+                <ShoppingCartIcon onClick={() => setPage("cart")} />
+              </Button>
 
               {cart.length}
             </p>
@@ -52,10 +54,12 @@ const App = () => {
         )}
         {page === "cart" && (
           <div className="AppHeader">
-            <KeyboardReturnRoundedIcon
-              onClick={() => setPage("home")}
-              className="BackButton"
-            />
+            <Button className="BackButton" style={{ color: "white" }}>
+              <KeyboardReturnRoundedIcon
+                onClick={() => setPage("home")}
+                className="BackButton"
+              />
+            </Button>
           </div>
         )}
       </div>

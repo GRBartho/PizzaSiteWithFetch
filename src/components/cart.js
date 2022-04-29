@@ -1,5 +1,6 @@
 import React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Button } from "@mui/material";
 
 function Cart({ cart, list, setTotalPrice, setCart }) {
   return (
@@ -36,7 +37,9 @@ function Cart({ cart, list, setTotalPrice, setCart }) {
                 <p className="CartText">
                   <img className="cartIMG" src={prod[0].url_imagem} />
                   {cart_prod.qtd}x {prod[0].descricao}
-                  <DeleteIcon onClick={del} className="delete" />
+                  <Button className="delete" style={{ color: "white" }}>
+                    <DeleteIcon onClick={del} className="delete" />
+                  </Button>
                 </p>
               </div>
             );

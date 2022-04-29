@@ -69,6 +69,7 @@ body{
 
 .Refresh {
   margin: 20px;
+  background-color: white;
 }
 
 .Refresh:hover {
