@@ -2,7 +2,9 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 import Home from "./components/home";
 import Cart from "./components/cart";
-import { Route, Routes } from "react-router-dom";
+import KeyboardReturnRoundedIcon from "@mui/icons-material/KeyboardReturnRounded";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
 
 const App = () => {
   const url =
@@ -10,13 +12,19 @@ const App = () => {
 
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const cart_list = list.filter((o) => o.qtd > 0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [cart, setCart] = useState([]);
+  const [page, setPage] = useState("home");
+
+  function refresh() {
+    window.location.reload(false);
+  }
 
   useEffect(() => {
     fetch(url)
       .then((response) => response.json())
       .then((parentData) => {
-        const res = parentData.results.map((p) => ({ ...p, qtd: 0 }));
+        const res = parentData.results;
         setList(res);
         setLoading(false);
       })
@@ -25,14 +33,58 @@ const App = () => {
       });
   }, []);
 
-  console.log(list);
-
   return (
-    <div>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart cart_list={cart_list} />} />
-      </Routes>
+    <div className="ComponentBody">
+      <div className="TopBar">
+        {page === "home" && (
+          <div className="AppHeader">
+            <RefreshRoundedIcon className="Refresh" onClick={() => refresh()} />
+
+            <p className="IndicadorCarrinho">
+              <ShoppingCartIcon
+                className="CartIcon"
+                onClick={() => setPage("cart")}
+              />
+
+              {cart.length}
+            </p>
+          </div>
+        )}
+        {page === "cart" && (
+          <div className="AppHeader">
+            <KeyboardReturnRoundedIcon
+              onClick={() => setPage("home")}
+              className="BackButton"
+            />
+          </div>
+        )}
+      </div>
+      {page === "home" && (
+        <div className="AppBody">
+          <Home
+            list={list}
+            loading={loading}
+            setTotalPrice={setTotalPrice}
+            setCart={setCart}
+            cart={cart}
+          />
+        </div>
+      )}
+      {page === "cart" && (
+        <div className="AppBody">
+          <Cart
+            cart={cart}
+            list={list}
+            setCart={setCart}
+            setTotalPrice={setTotalPrice}
+          />
+        </div>
+      )}
+      <div className="AppFooter">
+        <div className="FooterBar">
+          <p className="FooterText">Total: R$ {totalPrice}</p>
+        </div>
+      </div>
     </div>
   );
 };

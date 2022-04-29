@@ -2,6 +2,37 @@ body{
   background-color: #D9B48F;
 }
 
+.ComponentBody {
+  display: flex;
+  flex-direction: column;
+}
+
+.AppHeader {
+  display: flex;
+  overflow: hidden;
+  height: auto;
+}
+
+.AppBody {
+  display: flex;
+  overflow: auto;
+  max-height: calc(100vh - 125px);
+}
+
+.AppFooter {
+  display: flex;
+}
+
+.FooterBar {
+  color: white;
+  background-color: #1c1c1c;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  bottom: 0;
+  max-height: 64px;
+}
+
 .All {
   display: flex;
   flex-direction: column;
@@ -29,8 +60,6 @@ body{
   color: white;
   background-color: #1c1c1c;
   display: flex;
-  position: sticky;
-  top:0;
   flex-basis: 100%;
 }
 
@@ -40,6 +69,18 @@ body{
 
 .Refresh {
   margin: 20px;
+}
+
+.Refresh:hover {
+  opacity:0.7;
+}
+
+.BackButton {
+  margin:20px
+}
+
+.BackButton:hover {
+  opacity:0.7
 }
 
 a {
@@ -84,7 +125,7 @@ a {
   color: white;
   margin: 20px;
   border-radius: 15px;
-  flex-basis: 90%;
+  flex-basis: 50%;
   align-items: center;
   max-width: 50%;
   overflow: hidden;
@@ -99,8 +140,8 @@ a {
 .ProdIMG {
   flex:1;
   margin:20px;
-  min-width: 150px;
-  min-height: 150px;
+  min-width: 140px;
+  min-height: 140px;
   max-width: 150px;
   max-height: 150px;
 }
@@ -173,15 +214,7 @@ a {
   min-width: 60px;
 }
 
-.FooterBar {
-  color: white;
-  background-color: #1c1c1c;
-  display: flex;
-  flex: 1;
-  position: sticky;
-  bottom: 0;
-  justify-content: center;
-}
+
 
 .FooterText {
   margin:20px
@@ -189,4 +222,40 @@ a {
 
 .Cart {
   margin:20px;
+}
+
+.cartWithProds {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: #A6192E;
+  border-radius: 15px;
+  margin: 20px;
+}
+
+.cartIMG {
+  margin: 20px;
+  min-height: 120px;
+}
+
+.CartText {
+  color: white;
+  margin:20px;
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+}
+
+.delete {
+  margin-left: 70%;
+  min-height: 40px;
+  min-width: 40px;
+}
+
+.delete:hover {
+  opacity:0.7;
+}
+
+.CartIcon:hover {
+  opacity: 0.7;
 }

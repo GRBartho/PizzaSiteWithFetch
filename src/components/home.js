@@ -1,34 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
+import LocalPizzaIcon from "@mui/icons-material/LocalPizza";
 
-const Home = () => {
-  const url =
-    "https://homologation.stbl.com.br/estoque/produtos_app/?format=json";
-
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [list, setList] = useState([]);
+const Home = ({ list, loading, setTotalPrice, setCart, cart }) => {
   const [opened, setOpened] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const cart_list = list.filter((o) => o.qtd > 0);
 
   const parentFilter = (o) => o.item_pai === true && o.valor_venda > 0;
   const childFilter = (o) => o.item_filho === true && o.valor_venda > 0;
-
-  useEffect(() => {
-    fetch(url)
-      .then((response) => response.json())
-      .then((parentData) => {
-        const res = parentData.results.map((p) => ({ ...p, qtd: 0 }));
-        setList(res);
-        setLoading(false);
-      })
-      .catch(() => {
-        console.log("Alguma coisa deu errado");
-      });
-  }, []);
 
   if (loading === true) {
     return (
@@ -39,25 +18,6 @@ const Home = () => {
   } else {
     return (
       <div className="All">
-        <div className="TopBar">
-          <a href="/">
-            <RefreshRoundedIcon className="Refresh" title="refresh page" />
-          </a>
-
-          <p className="IndicadorCarrinho">
-            <a href="/cart">
-              <ShoppingCartIcon />
-            </a>
-            {cart_list.length}
-          </p>
-          <p className="Cart">
-            {cart_list.map((cart_prod) => (
-              <p>
-                {cart_prod.qtd}x {cart_prod.descricao}
-              </p>
-            ))}
-          </p>
-        </div>
         <div className="Header">
           <img
             alt=""
@@ -65,7 +25,9 @@ const Home = () => {
             src="https://thumbs.dreamstime.com/b/italian-pizza-fresh-salad-red-wine-wide-composition-party-dinner-flat-lay-various-kinds-glasses-over-rustic-wooden-table-174281796.jpg"
           />
           <div className="IMGBottom">
-            <p className="IMGBottomText">Bem bonito</p>
+            <p className="IMGBottomText">
+              <LocalPizzaIcon />
+            </p>
           </div>
         </div>
 
@@ -95,32 +57,46 @@ const Home = () => {
                           o.cod_pai === parentProd.id && o.id === childProd.id
                       )[0];
 
+                      const clickedObject = (o) => o.id === prod.id;
+
+                      const notClickedObject = (o) => o.id !== prod.id;
+
                       const decreasePrice = () => {
                         setTotalPrice(
                           (prev_price) => prev_price - childProd.valor_venda
                         );
                       };
                       const decreaseQtd = () => {
-                        setList((list) => {
-                          const obj = {
-                            ...list.filter(
-                              (o) =>
-                                o.cod_pai === parentProd.id &&
-                                o.id === childProd.id
-                            )[0],
-                          };
-                          obj.qtd--;
+                        const filteredProducts = cart.filter(clickedObject);
 
-                          const arraySemObj = list.filter(
-                            (o) =>
-                              o.cod_pai !== parentProd.id ||
-                              o.id !== childProd.id
-                          );
+                        const clickedProduct = filteredProducts[0];
 
-                          return [...arraySemObj, obj].sort(
-                            (a, b) => a.id - b.id
-                          );
-                        });
+                        let quantity = null;
+
+                        clickedProduct === undefined
+                          ? (quantity = undefined)
+                          : (quantity = clickedProduct.qtd);
+
+                        if (quantity > 1) {
+                          setCart((prev_cart) => {
+                            const obj = {
+                              ...prev_cart.filter(clickedObject)[0],
+                            };
+                            obj.qtd--;
+
+                            const arraySemObj =
+                              prev_cart.filter(notClickedObject);
+
+                            return [...arraySemObj, obj];
+                          });
+                        } else {
+                          setCart((prev_cart) => {
+                            const arraySemObj =
+                              prev_cart.filter(notClickedObject);
+
+                            return [...arraySemObj];
+                          });
+                        }
                       };
 
                       const decrease = () => {
@@ -135,26 +111,34 @@ const Home = () => {
                       };
 
                       const increaseQtd = () => {
-                        setList((list) => {
-                          const obj = {
-                            ...list.filter(
-                              (o) =>
-                                o.cod_pai === parentProd.id &&
-                                o.id === childProd.id
-                            )[0],
-                          };
-                          obj.qtd++;
+                        const filteredProducts = cart.filter(clickedObject);
 
-                          const arraySemObj = list.filter(
-                            (o) =>
-                              o.cod_pai !== parentProd.id ||
-                              o.id !== childProd.id
-                          );
+                        const clickedProduct = filteredProducts[0];
 
-                          return [...arraySemObj, obj].sort(
-                            (a, b) => a.id - b.id
-                          );
-                        });
+                        let quantity = null;
+
+                        clickedProduct === undefined
+                          ? (quantity = undefined)
+                          : (quantity = clickedProduct.qtd);
+
+                        if (quantity === undefined) {
+                          setCart((prev_cart) => [
+                            ...prev_cart,
+                            { id: prod.id, qtd: 1 },
+                          ]);
+                        } else {
+                          setCart((prev_cart) => {
+                            const obj = {
+                              ...prev_cart.filter(clickedObject)[0],
+                            };
+                            obj.qtd++;
+
+                            const arraySemObj =
+                              prev_cart.filter(notClickedObject);
+
+                            return [...arraySemObj, obj];
+                          });
+                        }
                       };
 
                       const increase = () => {
@@ -171,14 +155,18 @@ const Home = () => {
                               </p>
                               <button
                                 onClick={decrease}
-                                disabled={
-                                  prod.qtd <= 0 || prod.qtd === undefined
-                                }
                                 className="Button"
+                                disabled={
+                                  cart.filter(clickedObject)[0]?.qtd <= 0 ||
+                                  cart.filter(clickedObject)[0]?.qtd ===
+                                    undefined
+                                }
                               >
                                 -
                               </button>
-                              <div>{prod.qtd}</div>
+                              <div>
+                                {cart.filter(clickedObject)[0]?.qtd || 0}
+                              </div>
                               <button className="Button" onClick={increase}>
                                 +
                               </button>
@@ -197,9 +185,6 @@ const Home = () => {
               </div>
             );
           })}
-        </div>
-        <div className="FooterBar">
-          <p className="FooterText">Total: R$ {totalPrice}</p>
         </div>
       </div>
     );
