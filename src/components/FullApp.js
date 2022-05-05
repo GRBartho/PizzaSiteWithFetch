@@ -148,7 +148,15 @@ export function FullApp({
               };
               return (
                 <Red className="IndividualProducts">
-                  <p className="ProductTitle">Pizza {parentProd.descricao}</p>
+                  <div
+                    style={{
+                      display: "flex",
+                      flex: 1,
+                      justifyContent: "center",
+                    }}
+                  >
+                    <p className="ProductTitle">Pizza {parentProd.descricao}</p>
+                  </div>
                   <div className="OpenBtn">
                     <DarkOpenList
                       {...DarkOpenList.args}
