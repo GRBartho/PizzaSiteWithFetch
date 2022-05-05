@@ -13,10 +13,16 @@ body{
   height: auto;
 }
 
-.AppBody {
+.AppBodyHome {
   display: flex;
   overflow: auto;
-  max-height: calc(100vh - 134px);
+  max-height: calc(100vh - 120px);
+}
+
+.AppBodyCart {
+  display: flex;
+  overflow: auto;
+  max-height: calc(100vh - 120px);
 }
 
 .AppFooter {
@@ -24,13 +30,10 @@ body{
 }
 
 .FooterBar {
-  color: white;
-  background-color: #1c1c1c;
   display: flex;
   flex: 1;
   justify-content: center;
-  bottom: 0;
-  max-height: 64px;
+  flex-direction: row;
 }
 
 .All {
@@ -56,20 +59,8 @@ body{
   min-height: 200px;
 }
 
-.TopBar {
-  color: white;
-  background-color: #1c1c1c;
-  display: flex;
-  flex-basis: 100%;
-}
-
 .IndicadorCarrinho {
-  margin:20px;
-}
-
-.Refresh {
-  margin: 20px;
-  background-color: white;
+  margin:0px;
 }
 
 .Refresh:hover {
@@ -77,7 +68,7 @@ body{
 }
 
 .BackButton {
-  margin:20px
+  margin:20px;
 }
 
 .BackButton:hover {
@@ -115,21 +106,12 @@ a {
   justify-content: center;
 }
 
-.butText {
-  margin: 3px;
-}
-
 .IndividualProducts {
   display: flex;
   flex-direction: column;
-  background-color: #A6192E;
-  color: white;
-  margin: 20px;
-  border-radius: 15px;
   flex-basis: 50%;
   align-items: center;
   max-width: 50%;
-  overflow: hidden;
 }
 
 .ProductTitle {
@@ -154,11 +136,10 @@ a {
 }
 
 .OpenList {
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
+  border-radius: 10px;
   border:0px;
   background-color: black;
-  color:WHITE;
+  color:white;
   font-weight: bolder;
   font-size: 20px;
   flex:1;
@@ -171,14 +152,13 @@ a {
 
 .ChildProducts {
   background-color: #232323 ;
-  border-bottom-left-radius:15px;
-  border-bottom-right-radius:15px;
+  border-radius: 15px;
   min-width: 100%;
+  margin: 5px
 }
 
 .ChildName {
-  background-color: White;
-  color:black;
+  color:white;
   margin:15px;
   border-radius: 15px;
   display: flex;
@@ -194,18 +174,19 @@ a {
 
 .Button {
   margin:10px;
-  background-color: rgb(25,30,30);
+  background-color: white;
   border-radius: 5px;
-  color:white;
+  color:black;
+  border:none;
   font-weight: bolder;
 }
 
-.Button:hover{
-  opacity:0.9;
+.AddTake:hover {
+  opacity: 0.7;
 }
 
-.Button:disabled{
-  opacity:0.7
+.AddTake:disabled {
+  opacity: 0.6;
 }
 
 .ImagemFilho {
@@ -214,7 +195,6 @@ a {
   min-height: 60px;
   min-width: 60px;
 }
-
 
 
 .FooterText {

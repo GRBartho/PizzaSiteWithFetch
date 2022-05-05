@@ -2,10 +2,12 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 import Home from "./components/home";
 import Cart from "./components/cart";
-import KeyboardReturnRoundedIcon from "@mui/icons-material/KeyboardReturnRounded";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
+import { WhiteC } from "./stories/Icons/CartButton.stories";
+import { WhiteR } from "./stories/Icons/RefreshButton.stories";
+import { WhiteBackButton } from "./stories/Icons/BackButton.stories";
 import { Button } from "@mui/material";
+import { DarkBar } from "./stories/Bar.stories";
+import { CircularProgress } from "@mui/material";
 
 const App = () => {
   const url =
@@ -34,63 +36,75 @@ const App = () => {
       });
   }, []);
 
-  return (
-    <div className="ComponentBody">
-      <div className="TopBar">
-        {page === "home" && (
-          <div className="AppHeader">
-            <Button style={{ color: "white" }} className="Refresh">
-              <RefreshRoundedIcon onClick={() => refresh()} />
-            </Button>
-
-            <p className="IndicadorCarrinho">
-              <Button style={{ color: "white" }} className="CartIcon">
-                <ShoppingCartIcon onClick={() => setPage("cart")} />
+  if (loading === true) {
+    return (
+      <div className="LoadingDiv">
+        <CircularProgress className="Loading" color="inherit" />
+      </div>
+    );
+  } else {
+    return (
+      <div className="ComponentBody">
+        <DarkBar {...DarkBar.args}>
+          {page === "home" && (
+            <div className="AppHeader">
+              <Button onClick={() => refresh()} style={{ color: "white" }}>
+                <WhiteR {...WhiteR.args} />
               </Button>
 
-              {cart.length}
-            </p>
+              <p className="IndicadorCarrinho">
+                <Button
+                  onClick={() => setPage("cart")}
+                  style={{ color: "white" }}
+                  className="CartIcon"
+                >
+                  <WhiteC {...WhiteC.args} />
+                </Button>
+
+                {cart.length}
+              </p>
+            </div>
+          )}
+          {page === "cart" && (
+            <div className="AppHeader">
+              <Button onClick={() => setPage("home")}>
+                <WhiteBackButton
+                  {...WhiteBackButton.args}
+                  className="BackButton"
+                />
+              </Button>
+            </div>
+          )}
+        </DarkBar>
+        {page === "home" && (
+          <div className="AppBodyHome">
+            <Home
+              list={list}
+              loading={loading}
+              setTotalPrice={setTotalPrice}
+              setCart={setCart}
+              cart={cart}
+            />
           </div>
         )}
         {page === "cart" && (
-          <div className="AppHeader">
-            <Button className="BackButton" style={{ color: "white" }}>
-              <KeyboardReturnRoundedIcon
-                onClick={() => setPage("home")}
-                className="BackButton"
-              />
-            </Button>
+          <div className="AppBodyCart">
+            <Cart
+              cart={cart}
+              list={list}
+              setCart={setCart}
+              setTotalPrice={setTotalPrice}
+            />
           </div>
         )}
-      </div>
-      {page === "home" && (
-        <div className="AppBody">
-          <Home
-            list={list}
-            loading={loading}
-            setTotalPrice={setTotalPrice}
-            setCart={setCart}
-            cart={cart}
-          />
-        </div>
-      )}
-      {page === "cart" && (
-        <div className="AppBody">
-          <Cart
-            cart={cart}
-            list={list}
-            setCart={setCart}
-            setTotalPrice={setTotalPrice}
-          />
-        </div>
-      )}
-      <div className="AppFooter">
-        <div className="FooterBar">
-          <p className="FooterText">Total: R$ {totalPrice}</p>
+        <div className="AppFooter">
+          <DarkBar className="FooterBar" {...DarkBar.args} flexDirection="row">
+            <p className="FooterText">Total: R$ {totalPrice}</p>
+          </DarkBar>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default App;

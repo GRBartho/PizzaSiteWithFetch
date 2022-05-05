@@ -35,7 +35,11 @@ function Cart({ cart, list, setTotalPrice, setCart }) {
             return (
               <div className="cartWithProds">
                 <p className="CartText">
-                  <img className="cartIMG" src={prod[0].url_imagem} />
+                  <img
+                    alt="Pizza {prod.descricao}"
+                    className="cartIMG"
+                    src={prod[0].url_imagem}
+                  />
                   {cart_prod.qtd}x {prod[0].descricao}
                   <Button className="delete" style={{ color: "white" }}>
                     <DeleteIcon onClick={del} className="delete" />
